@@ -1,0 +1,46 @@
+{% load inflation_rate_color %}
+
+<!DOCTYPE html>{% load static %}
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title >Инфляция в России</title >
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  </head>
+
+  <body>
+    {% block content %}
+      <div class="row">
+        <h1 class="col s12">Инфляция в России</h1>
+        <br class="col s12 m8">
+        <table class="table">
+          <thead>
+          <tr>
+            {% for k in header %}
+            <th>{{k}}</th>
+            {% endfor %}
+          </tr>
+          </thead>
+          <tbody>
+          {% for items in total_format %}
+          <tr>
+            <td>{{items|first_or_last_el:0}}</td>
+            {% for item in items|el_months %}
+            <td style = "background-color:{{item|rate_color}}">{{item}}</td>
+            {% endfor %}
+            <td style = "background-color:#b8b8b8">{{items|first_or_last_el:-1}}</td>
+          </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+        </br>
+      </div>
+    {% endblock %}
+  </body>
+</html>
